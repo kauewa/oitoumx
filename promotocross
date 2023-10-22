@@ -1,0 +1,40 @@
+import requests
+
+cookies = {
+    '__utma': '130024863.1069866168.1697761067.1697761067.1697761067.1',
+    '__utmc': '130024863',
+    '__utmz': '130024863.1697761067.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)',
+    '__utmt': '1',
+    '__utmb': '130024863.2.10.1697761067',
+    '_fbp': 'fb.1.1697761067531.692966481',
+    '__gads': 'ID=b0b74325ff326ff4:T=1697761066:RT=1697761066:S=ALNI_MZR6NZOgegldQtj4r7-E8jJT7VZuA',
+    '__gpi': 'UID=00000a30a895d311:T=1697761066:RT=1697761066:S=ALNI_MaAOpbmoye2rtPur1ETYlZYInV65Q',
+}
+
+headers = {
+    'authority': 'americanmotocrosslive.com',
+    'accept': 'application/json, text/javascript, */*; q=0.01',
+    'accept-language': 'pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7',
+    # 'cookie': '__utma=130024863.1069866168.1697761067.1697761067.1697761067.1; __utmc=130024863; __utmz=130024863.1697761067.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none); __utmt=1; __utmb=130024863.2.10.1697761067; _fbp=fb.1.1697761067531.692966481; __gads=ID=b0b74325ff326ff4:T=1697761066:RT=1697761066:S=ALNI_MZR6NZOgegldQtj4r7-E8jJT7VZuA; __gpi=UID=00000a30a895d311:T=1697761066:RT=1697761066:S=ALNI_MaAOpbmoye2rtPur1ETYlZYInV65Q',
+    'referer': 'https://americanmotocrosslive.com/',
+    'sec-ch-ua': '"Chromium";v="118", "Google Chrome";v="118", "Not=A?Brand";v="99"',
+    'sec-ch-ua-mobile': '?0',
+    'sec-ch-ua-platform': '"Windows"',
+    'sec-fetch-dest': 'empty',
+    'sec-fetch-mode': 'cors',
+    'sec-fetch-site': 'same-origin',
+    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36',
+    'x-requested-with': 'XMLHttpRequest',
+}
+
+params = {
+    'R': '1697761073810',
+}
+
+response = requests.get(
+    'https://americanmotocrosslive.com/xml/mx/RaceResults.json',
+    params=params,
+    cookies=cookies,
+    headers=headers,
+)
+print(response.content)
