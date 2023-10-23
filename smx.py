@@ -1,3 +1,4 @@
+
 import requests
 
 #/overallresults/latest/XC/s1 - s1 = supercross
@@ -11,6 +12,10 @@ import requests
 
 #https://data-aws.amaproracing.com/api/pointstandings/smxcombined/2023/x1
 #https://data-aws.amaproracing.com/api/pointstandings/series/thin/2023/X1
+
+
+# print('Meu nome'nome_inteiro)
+
 
 
 
@@ -31,11 +36,6 @@ import requests
 # ORGANIZAR EM CLASSES ----- SMX - PAI
                         #    SX  - FILHO
                         #    MX  - FILHO
-
-
-
-
-
 CAMPEONATOS = {
     'SX1': 's1',
     'SX2': 's2',
@@ -66,16 +66,32 @@ class Smx:
     def __request(self, path):
         response = requests.get(self.link + path, headers=self.headers)
         if response.status_code == 200:
-            return response.content
+            return response.json()
         return None
 
-    def ultimos_resultados(self, campeonato:str):
-        path = 'overallresults/latest/XC/' + CAMPEONATOS[campeonato]
+    def latest_results(self, championchip:str):
+        path = 'overallresults/latest/XC/' + CAMPEONATOS[championchip]
         results = self.__request(path)
         return results
+
+    def all_teams(self, latest_championchip) -> list:
+        path = '/overallresults/latest/XC/' + CAMPEONATOS[latest_championchip + '1']
+        response_x1 = self.__request(path)
+        path = '/overallresults/latest/XC/' + CAMPEONATOS[latest_championchip + '2']
+        response_x2 = self.__request(path)
+        overall_result:list = response_x1['OverallResult']
+
+        overall_result = overall_result + response_x2['OverallResult']
+      
+        teams = []
+        
+        for result in overall_result:
+            if result["TeamName"] not in teams:
+                teams.append(result["TeamName"])
+        return teams
+            
 
 
 smx = Smx()
 
-results = smx.ultimos_resultados('SX1')
-print(results)
+results = smx.all_teams('SMX')
